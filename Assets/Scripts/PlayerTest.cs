@@ -1,8 +1,10 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerTest : MonoBehaviour
 {
     [SerializeField] GameObject targetObject;
+    List<GameObject> obedList = new ();
     void Start()
     {
         
@@ -15,13 +17,30 @@ public class PlayerTest : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-        Debug.Log("aa");
-        if (other.gameObject.tag == "TargetObject")
+        if (TargetList(other.gameObject))
         {
-            if (targetObject != other.gameObject)
+            if (other.gameObject.tag == "TargetObject")
             {
-                targetObject = other.gameObject;
+                if (targetObject != other.gameObject)
+                {
+                    obedList.Add(targetObject);
+                    targetObject = other.gameObject;
+                }
             }
         }
+    }
+
+    bool TargetList(GameObject target)
+    {
+        bool flag = true;
+
+        for (int i = 0; i < obedList.Count; i++)
+        {
+            if (target == obedList[i])
+            {
+                flag = false;
+            }
+        }
+        return flag;
     }
 }

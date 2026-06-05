@@ -741,7 +741,7 @@ MonoBehaviour:
   segments: 20
   length: 5
   angle: 90
-  speed: -1
+  speed: 1
   delay: 0.2
   ob: {fileID: 1987592883}
 --- !u!120 &641155236
@@ -1063,7 +1063,7 @@ MonoBehaviour:
   segments: 20
   length: 5
   angle: 90
-  speed: -1
+  speed: 1
   delay: 0.2
   ob: {fileID: 2144725326}
 --- !u!120 &1010851703
@@ -1206,7 +1206,7 @@ GameObject:
   - component: {fileID: 1075816171}
   - component: {fileID: 1075816172}
   m_Layer: 0
-  m_Name: Capsule
+  m_Name: Player
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1780,7 +1780,7 @@ MonoBehaviour:
   segments: 20
   length: 5
   angle: 90
-  speed: -1
+  speed: 1
   delay: 0.2
   ob: {fileID: 1810639689}
 --- !u!120 &1605736408
