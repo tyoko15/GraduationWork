@@ -1,10 +1,13 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class PlayerTest : MonoBehaviour
 {
     [SerializeField] GameObject targetObject;
     List<GameObject> obedList = new ();
+
+    Vector2 move;
     void Start()
     {
         
