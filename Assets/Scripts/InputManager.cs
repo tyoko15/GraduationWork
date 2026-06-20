@@ -8,6 +8,8 @@ public class InputManager : Singleton<InputManager>
     public Vector2 move { get; private set; }
     public bool jump { get; private set; }
 
+    public bool click { get; private set; }
+
     //public void OnMove(InputValue value) => move = value.Get<Vector2>();
     //public void OnJump(InputValue value) => jump = value.isPressed;
 
@@ -20,6 +22,9 @@ public class InputManager : Singleton<InputManager>
         inputActions.Player.Jump.started += OnJump;
         inputActions.Player.Jump.performed += OnJump;
         inputActions.Player.Jump.canceled += OnJump;
+        inputActions.Player.Click.started += OnClick;
+        inputActions.Player.Click.performed += OnClick;
+        inputActions.Player.Click.canceled += OnClick;
     }
     private void OnEnable()
     {
@@ -47,6 +52,22 @@ public class InputManager : Singleton<InputManager>
         if (context.canceled)
         {
             jump = false;
+        }
+    }
+
+    public void OnClick(InputAction.CallbackContext context)
+    {
+        if (context.started)
+        {
+            click = true;
+        }
+        if (context.performed)
+        {
+
+        }
+        if (context.canceled)
+        {
+            click = false;
         }
     }
 }
