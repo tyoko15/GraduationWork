@@ -12,12 +12,12 @@ TagManager:
   - 
   - Water
   - UI
-  - GroundLayer
-  - 
-  - 
-  - 
-  - 
-  - 
+  - Ground
+  - AllyGroupPoint
+  - OppenentGroupPoint
+  - FortPoint
+  - AllyFortPoint
+  - OppenentFortPoint
   - 
   - 
   - 

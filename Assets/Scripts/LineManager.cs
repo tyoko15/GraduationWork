@@ -8,6 +8,9 @@ public class LineManager : MonoBehaviour
 
     private LineRenderer lineRenderer;
     [SerializeField] private LayerMask groundLayer;
+    [SerializeField] private LayerMask pointLayer;
+    [SerializeField] private LayerMask oppenentFortLayer;
+    [SerializeField] private LayerMask fortLayer;
 
     [Header("線の制限設定")]
     [SerializeField] private float minDistance = 1.5f;     // 【カクカク化】値を大きくすると中継点が減ります (例: 1.5〜2.0)
@@ -19,6 +22,7 @@ public class LineManager : MonoBehaviour
 
     bool clickFlag;
     bool startFlag;
+    bool farstLayerFlag;
     void Start()
     {
         inputManager = InputManager.Instance;
@@ -34,10 +38,10 @@ public class LineManager : MonoBehaviour
         if (clickFlag && !startFlag)
         {
             ResetLine();
-            AddPointFromMouse();
+            FarstLayer();
             startFlag = true;
         }
-        else if (clickFlag && !isLineInvalid)
+        else if (clickFlag && !isLineInvalid && farstLayerFlag)
         {
             AddPointFromMouse();
         }
@@ -45,6 +49,7 @@ public class LineManager : MonoBehaviour
         {
             startFlag = false;
             isLineInvalid = false;
+            farstLayerFlag = false;
         }
     }
 
@@ -55,13 +60,26 @@ public class LineManager : MonoBehaviour
         
     }
 
+    void FarstLayer()
+    {
+        Vector2 mousePosition = Mouse.current.position.ReadValue();
+        Ray ray = Camera.main.ScreenPointToRay(mousePosition);
+        RaycastHit hit;
+        if (Physics.Raycast(ray, out hit, Mathf.Infinity, pointLayer))
+        {
+            farstLayerFlag = true;
+        }
+    }
+
     private void AddPointFromMouse()
     {
         Vector2 mousePosition = Mouse.current.position.ReadValue();
         Ray ray = Camera.main.ScreenPointToRay(mousePosition);
         RaycastHit hit;
 
-        if (Physics.Raycast(ray, out hit, Mathf.Infinity))
+
+
+        if (Physics.Raycast(ray, out hit, Mathf.Infinity, groundLayer))
         {
             Vector3 currentPosition = hit.point;
             currentPosition.y += heightOffset;

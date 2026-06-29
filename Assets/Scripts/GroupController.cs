@@ -4,10 +4,13 @@ using UnityEngine;
 public class GroupController : MonoBehaviour
 {
     List<Group> groupList = new ();
+
+    GameObject filterObject;
     
     void Start()
     {
         InitializeGroupList();
+        filterObject = transform.GetChild(2).gameObject;
     }
 
     
@@ -24,12 +27,17 @@ public class GroupController : MonoBehaviour
         for(int i = 0; i < 5; i++)
         {
             groupInfo = transform.GetChild(i).GetComponent<GroupData>();
-            groupList.Add (groupInfo.info);
-            groupList[i].number = i;
-            groupList[i].indication = Indication.Waiting;
-            groupList[i].infantryAmount = 20;
-            groupList[i].archerAmount = 20;
-            groupList[i].ashigaruAmount = 20;
+            
+            groupInfo.info.number = i;
+            groupInfo.info.type = Type.RaccoonDog;
+            groupInfo.info.indication = Indication.Waiting;
+            groupInfo.info.soldierAmount = 20;
+            groupList.Add(groupInfo.info);
         }
+    }
+
+    public void ActiveFilterObject(bool flag)
+    {
+        filterObject.SetActive(flag);
     }
 }
