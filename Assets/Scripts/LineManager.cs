@@ -11,6 +11,7 @@ public class LineManager : MonoBehaviour
     [SerializeField] private LayerMask pointLayer;
     [SerializeField] private LayerMask oppenentFortLayer;
     [SerializeField] private LayerMask fortLayer;
+    [SerializeField] private Material lineMaterial;
 
     [Header("線の制限設定")]
     [SerializeField] private float minDistance = 1.5f;     // 【カクカク化】値を大きくすると中継点が減ります (例: 1.5〜2.0)
@@ -19,6 +20,7 @@ public class LineManager : MonoBehaviour
 
     private List<Vector3> points = new List<Vector3>();    // 座標の管理用リスト
     private bool isLineInvalid = false;                    // 現在の線が無効かどうか
+    GroupData groupData;
 
     bool clickFlag;
     bool startFlag;
@@ -50,14 +52,23 @@ public class LineManager : MonoBehaviour
             startFlag = false;
             isLineInvalid = false;
             farstLayerFlag = false;
+            if (groupData != null) groupData.letgo = true;
+
         }
     }
 
     private void ResetLine()
     {
         points.Clear();
-        lineRenderer.positionCount = 0;
-        
+        //lineRenderer.positionCount = 0;
+        groupData = null;
+        GameObject lineObject = new GameObject("Line");
+        lineRenderer = lineObject.AddComponent<LineRenderer>();
+        lineRenderer.material = lineMaterial;
+        lineRenderer.startWidth = 4;
+        lineRenderer.endWidth = 4;
+        lineRenderer.textureMode = LineTextureMode.RepeatPerSegment;
+
     }
 
     void FarstLayer()
@@ -68,6 +79,8 @@ public class LineManager : MonoBehaviour
         if (Physics.Raycast(ray, out hit, Mathf.Infinity, pointLayer))
         {
             farstLayerFlag = true;
+            groupData = hit.collider.GetComponent<GroupData>();
+            groupData.GetLine(lineRenderer);
         }
     }
 
