@@ -37,7 +37,9 @@ public class GroupData : MonoBehaviour
     Renderer leaderRenderer;
     [SerializeField] Texture[] leaderTexs;
     GameObject filterObject;
-
+    public float speed = 3f;
+    LineRenderer guidLine;
+    public bool guidLineFlag;
 
     private void Start()
     {
@@ -51,10 +53,53 @@ public class GroupData : MonoBehaviour
         int i = (info.type == Type.RaccoonDog) ? 0 : (info.type == Type.Fox) ? 1 : 2;
         soldierAmountText.text = $"{info.soldierAmount}";
         leaderRenderer.material.SetTexture("_BaseMap", leaderTexs[i]);
-    }
 
+        if (guidLine != null && guidLineFlag)
+        {
+            Vector3 target = guidLine.GetPosition(0);
+
+            transform.position = Vector3.MoveTowards(
+                transform.position,
+                target,
+                speed * Time.deltaTime);
+
+            if (Vector3.Distance(transform.position, target) < 0.05f)
+            {
+                if (guidLine.positionCount > 1) RemovePoint(0);
+                else
+                {
+                    Destroy(guidLine.gameObject);
+                    guidLine = null;
+                }
+            }
+        }
+    }
+    public void RemovePoint(int index)
+    {
+        if (index < 0 || index >= guidLine.positionCount)
+            return;
+
+        Vector3[] points = new Vector3[guidLine.positionCount - 1];
+
+        int j = 0;
+        for (int i = 0; i < guidLine.positionCount; i++)
+        {
+            if (i == index)
+                continue;
+
+            points[j++] = guidLine.GetPosition(i);
+        }
+
+        guidLine.positionCount = points.Length;
+        guidLine.SetPositions(points);
+    }
     public void ActiveFilterObject(bool flag)
     {
         filterObject.SetActive(flag);
+    }
+
+    public void SetGuidLine(LineRenderer line)
+    {
+        guidLine = line;
     }
 }

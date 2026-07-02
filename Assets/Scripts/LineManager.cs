@@ -6,6 +6,7 @@ public class LineManager : MonoBehaviour
 {
     InputManager inputManager;
 
+    GroupData groupData;
     private LineRenderer lineRenderer;
     [SerializeField] private LayerMask groundLayer;
     [SerializeField] private LayerMask pointLayer;
@@ -23,6 +24,9 @@ public class LineManager : MonoBehaviour
     bool clickFlag;
     bool startFlag;
     bool farstLayerFlag;
+
+    GameObject lineObject;
+    [SerializeField] Material lineMaterial;
     void Start()
     {
         inputManager = InputManager.Instance;
@@ -50,14 +54,18 @@ public class LineManager : MonoBehaviour
             startFlag = false;
             isLineInvalid = false;
             farstLayerFlag = false;
+            if (groupData != null)
+            {
+                groupData.guidLineFlag = true;
+                groupData = null;
+            }
         }
     }
 
     private void ResetLine()
     {
         points.Clear();
-        lineRenderer.positionCount = 0;
-        
+        lineRenderer = null;
     }
 
     void FarstLayer()
@@ -68,6 +76,14 @@ public class LineManager : MonoBehaviour
         if (Physics.Raycast(ray, out hit, Mathf.Infinity, pointLayer))
         {
             farstLayerFlag = true;
+            lineObject = new GameObject("Line");
+            lineRenderer = lineObject.AddComponent<LineRenderer>();
+            lineRenderer.startWidth = 4f;
+            lineRenderer.endWidth = 4f;
+            lineRenderer.material = lineMaterial;
+            lineRenderer.textureMode = LineTextureMode.RepeatPerSegment;
+            groupData = hit.collider.GetComponent<GroupData>();
+            hit.collider.GetComponent<GroupData>().SetGuidLine(lineRenderer);
         }
     }
 
@@ -76,8 +92,6 @@ public class LineManager : MonoBehaviour
         Vector2 mousePosition = Mouse.current.position.ReadValue();
         Ray ray = Camera.main.ScreenPointToRay(mousePosition);
         RaycastHit hit;
-
-
 
         if (Physics.Raycast(ray, out hit, Mathf.Infinity, groundLayer))
         {

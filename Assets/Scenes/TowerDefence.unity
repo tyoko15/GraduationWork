@@ -12126,12 +12126,16 @@ MonoBehaviour:
   pointLayer:
     serializedVersion: 2
     m_Bits: 128
+  oppenentFortLayer:
+    serializedVersion: 2
+    m_Bits: 0
   fortLayer:
     serializedVersion: 2
     m_Bits: 0
   minDistance: 1.5
   maxTurnAngle: 120
   heightOffset: 0.1
+  lineMaterial: {fileID: 2100000, guid: 052274362868c0f4081e337d868dfa14, type: 2}
 --- !u!120 &974570098
 LineRenderer:
   serializedVersion: 3
