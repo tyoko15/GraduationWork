@@ -35,6 +35,14 @@ public class LineManager : MonoBehaviour
 
         lineRenderer = GetComponent<LineRenderer>();
         lineRenderer.positionCount = 0;
+
+        lineObject = new GameObject("Line");
+        lineRenderer = lineObject.AddComponent<LineRenderer>();
+        lineRenderer.startWidth = 4f;
+        lineRenderer.endWidth = 4f;
+        lineRenderer.material = lineMaterial;
+        lineRenderer.textureMode = LineTextureMode.RepeatPerSegment;
+
     }
 
     void Update()
@@ -60,6 +68,14 @@ public class LineManager : MonoBehaviour
             {
                 groupData.guidLineFlag = true;
                 groupData = null;
+
+                // 新しいLineObjectを作成しておく
+                lineObject = new GameObject("Line");
+                lineRenderer = lineObject.AddComponent<LineRenderer>();
+                lineRenderer.startWidth = 4f;
+                lineRenderer.endWidth = 4f;
+                lineRenderer.material = lineMaterial;
+                lineRenderer.textureMode = LineTextureMode.RepeatPerSegment;
             }
         }
     }
@@ -67,7 +83,6 @@ public class LineManager : MonoBehaviour
     private void ResetLine()
     {
         points.Clear();
-        lineRenderer = null;
     }
 
     void FarstLayer()
@@ -78,28 +93,36 @@ public class LineManager : MonoBehaviour
         if (Physics.Raycast(ray, out hit, Mathf.Infinity, pointLayer))
         {
             farstLayerFlag = true;
-            SpawnLineAfterDelay();
-            lineRenderer = lineObject.AddComponent<LineRenderer>();
-            lineRenderer.startWidth = 4f;
-            lineRenderer.endWidth = 4f;
-            lineRenderer.material = lineMaterial;
-            lineRenderer.textureMode = LineTextureMode.RepeatPerSegment;
-            
             groupData = hit.collider.GetComponent<GroupData>();
-            if (groupData.guidLine != null) Destroy(groupData.guidLine);
+
+            if (groupData.guidLine != null)
+            {
+                Destroy(groupData.guidLine);
+                groupData.guidLineFlag = false;
+            }
+
+
             hit.collider.GetComponent<GroupData>().SetGuidLine(lineRenderer);
-            Debug.Log("aaa");
         }
     }
 
-    IEnumerator SpawnLineAfterDelay()
+    IEnumerator SpawnLineAfterDelay(RaycastHit hit)
     {
         // 例: 2秒間待機する（ここに別の条件待ちを入れてもOK）
         yield return new WaitForSeconds(2.0f);
 
-        // メインスレッドで安全に生成される
-        GameObject line = new GameObject("Line");
-        Debug.Log("Lineが生成されました！");
+        lineObject = new GameObject("Line");
+        lineRenderer = lineObject.AddComponent<LineRenderer>();
+        lineRenderer.startWidth = 4f;
+        lineRenderer.endWidth = 4f;
+        lineRenderer.material = lineMaterial;
+        lineRenderer.textureMode = LineTextureMode.RepeatPerSegment;
+
+        groupData = hit.collider.GetComponent<GroupData>();
+        if (groupData.guidLine != null) Destroy(groupData.guidLine);
+        hit.collider.GetComponent<GroupData>().SetGuidLine(lineRenderer);
+        Debug.Log("aaa");
+
     }
 
     private void AddPointFromMouse()
@@ -107,6 +130,7 @@ public class LineManager : MonoBehaviour
         Vector2 mousePosition = Mouse.current.position.ReadValue();
         Ray ray = Camera.main.ScreenPointToRay(mousePosition);
         RaycastHit hit;
+        if (lineObject == null) return;
         if (Physics.Raycast(ray, out hit, Mathf.Infinity, fortLayer))
         {
             AddNewPoint(hit.collider.gameObject.transform.position);

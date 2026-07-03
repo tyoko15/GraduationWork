@@ -71,6 +71,7 @@ public class GroupData : MonoBehaviour
                 {
                     Destroy(guidLine.gameObject);
                     guidLine = null;
+                    guidLineFlag = false;
                 }
             }
         }
