@@ -22,6 +22,7 @@ public enum Indication
 [System.Serializable]
 public class Group
 {
+    public Team team;
     public int number;
     public Type type;
     public Indication indication;
@@ -38,7 +39,7 @@ public class GroupData : MonoBehaviour
     [SerializeField] Texture[] leaderTexs;
     GameObject filterObject;
     public float speed = 3f;
-    LineRenderer guidLine;
+    public LineRenderer guidLine;
     public bool guidLineFlag;
 
     private void Start()

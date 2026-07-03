@@ -1,8 +1,13 @@
 using System.Collections.Generic;
 using UnityEngine;
-
+public enum Team
+{
+    Ally, 
+    Oppenent,
+}
 public class GroupController : MonoBehaviour
 {
+    [SerializeField] Team team;
     List<Group> groupList = new ();
 
     GameObject filterObject;
@@ -28,6 +33,7 @@ public class GroupController : MonoBehaviour
         {
             groupInfo = transform.GetChild(i).GetComponent<GroupData>();
             
+            groupInfo.info.team = team;
             groupInfo.info.number = i;
             groupInfo.info.type = Type.RaccoonDog;
             groupInfo.info.indication = Indication.Waiting;

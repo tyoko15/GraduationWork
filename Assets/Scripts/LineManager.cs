@@ -1,6 +1,8 @@
 ﻿using System.Collections.Generic;
+using UnityEditor.ShaderGraph;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using System.Collections;
 
 public class LineManager : MonoBehaviour
 {
@@ -76,15 +78,28 @@ public class LineManager : MonoBehaviour
         if (Physics.Raycast(ray, out hit, Mathf.Infinity, pointLayer))
         {
             farstLayerFlag = true;
-            lineObject = new GameObject("Line");
+            SpawnLineAfterDelay();
             lineRenderer = lineObject.AddComponent<LineRenderer>();
             lineRenderer.startWidth = 4f;
             lineRenderer.endWidth = 4f;
             lineRenderer.material = lineMaterial;
             lineRenderer.textureMode = LineTextureMode.RepeatPerSegment;
+            
             groupData = hit.collider.GetComponent<GroupData>();
+            if (groupData.guidLine != null) Destroy(groupData.guidLine);
             hit.collider.GetComponent<GroupData>().SetGuidLine(lineRenderer);
+            Debug.Log("aaa");
         }
+    }
+
+    IEnumerator SpawnLineAfterDelay()
+    {
+        // 例: 2秒間待機する（ここに別の条件待ちを入れてもOK）
+        yield return new WaitForSeconds(2.0f);
+
+        // メインスレッドで安全に生成される
+        GameObject line = new GameObject("Line");
+        Debug.Log("Lineが生成されました！");
     }
 
     private void AddPointFromMouse()
@@ -92,8 +107,12 @@ public class LineManager : MonoBehaviour
         Vector2 mousePosition = Mouse.current.position.ReadValue();
         Ray ray = Camera.main.ScreenPointToRay(mousePosition);
         RaycastHit hit;
-
-        if (Physics.Raycast(ray, out hit, Mathf.Infinity, groundLayer))
+        if (Physics.Raycast(ray, out hit, Mathf.Infinity, fortLayer))
+        {
+            AddNewPoint(hit.collider.gameObject.transform.position);
+            isLineInvalid = true;
+        }
+        else if (Physics.Raycast(ray, out hit, Mathf.Infinity, groundLayer))
         {
             Vector3 currentPosition = hit.point;
             currentPosition.y += heightOffset;
@@ -101,7 +120,7 @@ public class LineManager : MonoBehaviour
             // 最初の点
             if (points.Count == 0)
             {
-                AddNewPoint(currentPosition);
+                AddNewPoint(groupData.gameObject.transform.position);
                 return;
             }
 
@@ -128,6 +147,7 @@ public class LineManager : MonoBehaviour
                 AddNewPoint(currentPosition);
             }
         }
+
     }
 
     private void AddNewPoint(Vector3 pos)
