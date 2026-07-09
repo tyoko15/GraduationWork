@@ -32,11 +32,11 @@ public class GroupController : MonoBehaviour
         for(int i = 0; i < 5; i++)
         {
             groupInfo = transform.GetChild(i).GetComponent<GroupData>();
-            
+            groupInfo.gameObject.layer = (team == Team.Ally) ? 7 : 8;
             groupInfo.info.team = team;
             groupInfo.info.number = i;
-            groupInfo.info.type = Type.RaccoonDog;
-            groupInfo.info.indication = Indication.Waiting;
+            //groupInfo.info.type = Type.RaccoonDog;
+            //groupInfo.info.indication = Indication.Waiting;
             groupInfo.info.soldierAmount = 20;
             groupList.Add(groupInfo.info);
         }
