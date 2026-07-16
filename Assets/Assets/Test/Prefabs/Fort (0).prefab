@@ -220,6 +220,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::HPGaugeController
   maxHp: 10
+  hpGauge: {fileID: 7959037002225471885}
 --- !u!114 &7701990884211178025
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -458,7 +459,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::FortController
   state: 0
   hpGaugeController: {fileID: 0}
-  maxHp: 50
+  maxHp: 500
 --- !u!65 &3253982213169702823
 BoxCollider:
   m_ObjectHideFlags: 0

@@ -1,4 +1,3 @@
-using System.Collections;
 using UnityEngine;
 
 public enum State
@@ -8,7 +7,7 @@ public enum State
     Opponent,
 }
 
-public class FortController : MonoBehaviour
+public class FortController : MonoBehaviour, IDamage
 {
     [SerializeField] State state = State.Independent;
     [HideInInspector] public HPGaugeController hpGaugeController;
@@ -16,6 +15,9 @@ public class FortController : MonoBehaviour
     int hp;
 
     GameObject filterObject;
+
+    public bool attackedFlag;
+    public Team attackedTeam;
 
     void Start()
     {
@@ -69,4 +71,15 @@ public class FortController : MonoBehaviour
                 break;
         }
     }
+
+    public void TakeDamage(int damage)
+    {
+        Damage(damage);
+        if (hp <= 0)
+        {
+
+        }
+    }
+
+
 }

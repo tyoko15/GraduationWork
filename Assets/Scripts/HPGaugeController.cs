@@ -7,7 +7,7 @@ public class HPGaugeController : MonoBehaviour
 
     public int maxHp;
     int hp;
-    Image hpGauge;
+    [SerializeField] Image hpGauge;
     GameObject mainCamera;
     void Start()
     {

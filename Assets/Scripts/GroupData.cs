@@ -1,7 +1,5 @@
 using TMPro;
-using UnityEditor.Experimental.GraphView;
 using UnityEngine;
-using UnityEngine.UI;
 
 public enum Type
 {
@@ -43,6 +41,11 @@ public class GroupData : MonoBehaviour, IDamage
     public LineRenderer guidLine;
     public bool guidLineFlag;
 
+    FortController attackFort;
+    bool fortAttackFlag;
+    float repeatTimer;
+    float repeatTime = 2f;
+
     private void Start()
     {
         soldierAmountText = transform.GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>();
@@ -74,6 +77,19 @@ public class GroupData : MonoBehaviour, IDamage
                     guidLine = null;
                     guidLineFlag = false;
                 }
+            }
+        }
+
+        if (fortAttackFlag)
+        {
+            if (repeatTimer > repeatTime)
+            {
+                repeatTimer = 0f;
+                attackFort.TakeDamage(info.soldierAmount);
+            }
+            else
+            {
+                repeatTimer += Time.deltaTime;
             }
         }
     }
@@ -108,14 +124,23 @@ public class GroupData : MonoBehaviour, IDamage
 
     private void OnTriggerEnter(Collider other)
     {
-        int layer = (info.team == Team.Ally) ?  8 : 7;
-        if (other.gameObject.layer == layer)
+        int groupLayer = (info.team == Team.Ally) ?  8 : 7;
+        int fortLayer = (info.team == Team.Ally) ? 11 : 10;
+        if (other.gameObject.layer == groupLayer)
         {
             GroupData groupData = other.GetComponent<GroupData>();
             Type self = info.type;
             Type opponent = groupData.info.type;
             int damageAmount =  (int)(10*TypeMatchup(self, opponent));
             other.GetComponent<GroupData>().TakeDamage(damageAmount);
+            if (guidLine != null) guidLine.gameObject.SetActive(false);
+            guidLineFlag = false;
+        }
+        else if (other.gameObject.layer == 9 || other.gameObject.layer == fortLayer)
+        {
+            FortController fort = other.GetComponent<FortController>();
+            fort.TakeDamage(info.soldierAmount);
+            fortAttackFlag = true;
             if (guidLine != null) guidLine.gameObject.SetActive(false);
             guidLineFlag = false;
         }
