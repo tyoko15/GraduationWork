@@ -37,6 +37,7 @@ public class GroupData : MonoBehaviour, IDamage
     Renderer leaderRenderer;
     [SerializeField] Texture[] leaderTexs;
     GameObject filterObject;
+    GameObject arrowObject;
     public float speed = 3f;
     public LineRenderer guidLine;
     public bool guidLineFlag;
@@ -49,8 +50,8 @@ public class GroupData : MonoBehaviour, IDamage
     private void Start()
     {
         soldierAmountText = transform.GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>();
-        leaderRenderer = transform.GetChild(1).GetComponent<Renderer>();
-        filterObject = transform.GetChild(2).gameObject;
+        leaderRenderer = transform.GetChild(1).GetChild(0).GetComponent<Renderer>();
+        filterObject = transform.GetChild(1).GetChild(1).gameObject;
     }
 
     private void Update()
@@ -82,17 +83,25 @@ public class GroupData : MonoBehaviour, IDamage
 
         if (fortAttackFlag)
         {
+            if (attackFort.hp <= 0 || attackFort.state == info.team)
+            {
+                attackFort = null;
+                fortAttackFlag = false;
+            }
             if (repeatTimer > repeatTime)
             {
                 repeatTimer = 0f;
-                attackFort.TakeDamage(info.soldierAmount);
+                if (attackFort.hp > 0) attackFort.TakeDamage(info.soldierAmount);
+                else
+                {
+                    attackFort = null;
+                    fortAttackFlag = false;
+                }
             }
-            else
-            {
-                repeatTimer += Time.deltaTime;
-            }
+            else repeatTimer += Time.deltaTime;
         }
     }
+
     public void RemovePoint(int index)
     {
         if (index < 0 || index >= guidLine.positionCount)
@@ -138,11 +147,16 @@ public class GroupData : MonoBehaviour, IDamage
         }
         else if (other.gameObject.layer == 9 || other.gameObject.layer == fortLayer)
         {
-            FortController fort = other.GetComponent<FortController>();
-            fort.TakeDamage(info.soldierAmount);
-            fortAttackFlag = true;
-            if (guidLine != null) guidLine.gameObject.SetActive(false);
-            guidLineFlag = false;
+            attackFort = other.GetComponent<FortController>();
+            if (attackFort.state != info.team)
+            {
+                attackFort.TakeDamage(info.soldierAmount);
+                attackFort.attackedTeam = info.team;
+                fortAttackFlag = true;
+                if (guidLine != null) guidLine.gameObject.SetActive(false);
+                guidLineFlag = false;
+            }
+            else attackFort = null;
         }
     }
 

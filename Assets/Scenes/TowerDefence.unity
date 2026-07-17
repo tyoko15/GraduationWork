@@ -2810,6 +2810,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5542778520665954107, guid: 36f9ba8fa62eb97449e6f61447088d6b, type: 3}
+      propertyPath: state
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 5597366345871543419, guid: 36f9ba8fa62eb97449e6f61447088d6b, type: 3}
       propertyPath: m_Layer
       value: 11
@@ -10431,6 +10435,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5542778520665954107, guid: 36f9ba8fa62eb97449e6f61447088d6b, type: 3}
+      propertyPath: state
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5597366345871543419, guid: 36f9ba8fa62eb97449e6f61447088d6b, type: 3}
       propertyPath: m_Layer
       value: 10
@@ -15651,6 +15659,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5542778520665954107, guid: 36f9ba8fa62eb97449e6f61447088d6b, type: 3}
+      propertyPath: state
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 5597366345871543419, guid: 36f9ba8fa62eb97449e6f61447088d6b, type: 3}
       propertyPath: m_Layer
       value: 11
@@ -16680,7 +16692,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9117d8300f4af1a4a8e82d6099df5aac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GroupController
-  team: 1
+  team: 2
 --- !u!1001 &1414147135
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -17316,7 +17328,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9117d8300f4af1a4a8e82d6099df5aac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GroupController
-  team: 0
+  team: 1
 --- !u!1001 &1463003051
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -23349,10 +23361,6 @@ PrefabInstance:
       propertyPath: speed
       value: 5
       objectReference: {fileID: 0}
-    - target: {fileID: 8965931142325272041, guid: 359bbfe295d5de54abc081804902aba3, type: 3}
-      propertyPath: info.team
-      value: 1
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -23425,6 +23433,10 @@ PrefabInstance:
     - target: {fileID: 4283419313376408269, guid: 36f9ba8fa62eb97449e6f61447088d6b, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5542778520665954107, guid: 36f9ba8fa62eb97449e6f61447088d6b, type: 3}
+      propertyPath: state
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5597366345871543419, guid: 36f9ba8fa62eb97449e6f61447088d6b, type: 3}
       propertyPath: m_Layer

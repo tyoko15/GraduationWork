@@ -2,8 +2,9 @@ using System.Collections.Generic;
 using UnityEngine;
 public enum Team
 {
+    Independent,
     Ally, 
-    Oppenent,
+    Opponent,
 }
 public class GroupController : MonoBehaviour
 {

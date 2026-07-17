@@ -1,39 +1,36 @@
 using UnityEngine;
 
-public enum State
-{
-    Independent,
-    Ally,
-    Opponent,
-}
-
 public class FortController : MonoBehaviour, IDamage
 {
-    [SerializeField] State state = State.Independent;
+    [SerializeField] public Team state = Team.Independent;
     [HideInInspector] public HPGaugeController hpGaugeController;
     [SerializeField] int maxHp;
-    int hp;
+    public int hp;
 
     GameObject filterObject;
+    [SerializeField] Material[] filterMaterials;
 
     public bool attackedFlag;
     public Team attackedTeam;
 
     void Start()
     {
+        hp = maxHp;
         InitializeHPGaugeController();
         filterObject = transform.GetChild(1).gameObject;
+        ChangeFilterColor(state);
+
     }
 
     void Update()
     {
-
-    }
-
-    void Damage(int damage)
-    {
-        hp -= damage;
-        hpGaugeController.SetHp(hp);
+        if (hp <= 0)
+        {
+            state = attackedTeam;
+            hp = maxHp;
+            ChangeFilterColor(state);
+            hpGaugeController.SetHp(hp);
+        }
     }
 
     void InitializeHPGaugeController()
@@ -42,31 +39,47 @@ public class FortController : MonoBehaviour, IDamage
         hpGaugeController.maxHp = maxHp;
     }
 
+    void ChangeFilterColor(Team state)
+    {
+        switch (state)
+        {
+            case Team.Independent:
+                filterObject.GetComponent<Renderer>().material = filterMaterials[0];
+                break;
+            case Team.Ally:
+                filterObject.GetComponent<Renderer>().material = filterMaterials[1];
+                break;
+            case Team.Opponent:
+                filterObject.GetComponent<Renderer>().material = filterMaterials[2];
+                break;
+        }
+    }
+
     public void ActiveFilterObject(bool flag)
     {
         switch (state)
         {
-            case State.Independent:
-            case State.Opponent:
+            case Team.Independent:
+            case Team.Opponent:
                 filterObject.SetActive(flag);
                 break;
-            case State.Ally:
+            case Team.Ally:
                 filterObject.SetActive(flag);
                 break;
         }
     }
 
-    public void ChangeFortLayer(State change)
+    public void ChangeFortLayer(Team change)
     {
         switch (change)
         {
-            case State.Independent:
+            case Team.Independent:
                 gameObject.layer = 9;
                 break;
-            case State.Ally:
+            case Team.Ally:
                 gameObject.layer = 10;
                 break;
-            case State.Opponent:
+            case Team.Opponent:
                 gameObject.layer = 11;
                 break;
         }
@@ -74,12 +87,7 @@ public class FortController : MonoBehaviour, IDamage
 
     public void TakeDamage(int damage)
     {
-        Damage(damage);
-        if (hp <= 0)
-        {
-
-        }
+        hp -= damage;
+        hpGaugeController.SetHp(hp);
     }
-
-
 }

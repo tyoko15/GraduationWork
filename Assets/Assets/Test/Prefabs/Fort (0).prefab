@@ -233,6 +233,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2866cb6110ffaf348b57e30daf6c5ca5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Billboard
+  castleFlag: 0
 --- !u!223 &7979116530773497102
 Canvas:
   m_ObjectHideFlags: 0
@@ -460,6 +461,12 @@ MonoBehaviour:
   state: 0
   hpGaugeController: {fileID: 0}
   maxHp: 500
+  filterMaterials:
+  - {fileID: 2100000, guid: e18682caf1ad89a4385d29fa7aec2026, type: 2}
+  - {fileID: 2100000, guid: 7d14dcf77a9c2dd429bda2db10e43020, type: 2}
+  - {fileID: 2100000, guid: aa27500c91c187b4798d6ffe1b956239, type: 2}
+  attackedFlag: 0
+  attackedTeam: 0
 --- !u!65 &3253982213169702823
 BoxCollider:
   m_ObjectHideFlags: 0
