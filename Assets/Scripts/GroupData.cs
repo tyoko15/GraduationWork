@@ -47,11 +47,30 @@ public class GroupData : MonoBehaviour, IDamage
     float repeatTimer;
     float repeatTime = 2f;
 
+    GameObject[] sizes = new GameObject[3];
+
     private void Start()
     {
         soldierAmountText = transform.GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>();
         leaderRenderer = transform.GetChild(1).GetChild(0).GetComponent<Renderer>();
         filterObject = transform.GetChild(1).GetChild(1).gameObject;
+        for (int i = 0; i < sizes.Length; i++)
+        {
+            sizes[i] = transform.GetChild(2 + i).gameObject;
+            sizes[i].SetActive(false);
+        }
+        switch (info.soldierAmount)
+        {
+            case <= 10:
+                sizes[0].SetActive(true);
+                break;
+            case <= 20:
+                sizes[1].SetActive(true);
+                break;
+            case <= 30:
+                sizes[2].SetActive(true);
+                break;
+        }
     }
 
     private void Update()

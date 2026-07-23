@@ -461,6 +461,7 @@ MonoBehaviour:
   state: 0
   hpGaugeController: {fileID: 0}
   maxHp: 500
+  hp: 0
   filterMaterials:
   - {fileID: 2100000, guid: e18682caf1ad89a4385d29fa7aec2026, type: 2}
   - {fileID: 2100000, guid: 7d14dcf77a9c2dd429bda2db10e43020, type: 2}
@@ -597,6 +598,10 @@ PrefabInstance:
       propertyPath: m_ConstrainProportionsScale
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: 51e28729a6f792a41b9e03302485c6d7, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 31084850cbc32174baff3139260f92cb, type: 2}
     - target: {fileID: 919132149155446097, guid: 51e28729a6f792a41b9e03302485c6d7, type: 3}
       propertyPath: m_Name
       value: tower-top
@@ -679,6 +684,10 @@ PrefabInstance:
       propertyPath: m_ConstrainProportionsScale
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: 1836d5a681179514fb35eca64a58c228, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 31084850cbc32174baff3139260f92cb, type: 2}
     - target: {fileID: 919132149155446097, guid: 1836d5a681179514fb35eca64a58c228, type: 3}
       propertyPath: m_Name
       value: tower-hexagon-roof-secondary
@@ -761,6 +770,10 @@ PrefabInstance:
       propertyPath: m_ConstrainProportionsScale
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: a7812e98dd5de3447bb044afcc58ffc0, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 31084850cbc32174baff3139260f92cb, type: 2}
     - target: {fileID: 919132149155446097, guid: a7812e98dd5de3447bb044afcc58ffc0, type: 3}
       propertyPath: m_Name
       value: tower-hexagon-mid
@@ -843,6 +856,10 @@ PrefabInstance:
       propertyPath: m_ConstrainProportionsScale
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: 00bef730916789742b81dfccdba35121, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 31084850cbc32174baff3139260f92cb, type: 2}
     - target: {fileID: 919132149155446097, guid: 00bef730916789742b81dfccdba35121, type: 3}
       propertyPath: m_Name
       value: tower-hexagon-top-wood
@@ -925,6 +942,10 @@ PrefabInstance:
       propertyPath: m_ConstrainProportionsScale
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: 3964c80a5f9b99549bbd31c5d3cae24f, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 31084850cbc32174baff3139260f92cb, type: 2}
     - target: {fileID: 919132149155446097, guid: 3964c80a5f9b99549bbd31c5d3cae24f, type: 3}
       propertyPath: m_Name
       value: tower-base
@@ -1007,6 +1028,10 @@ PrefabInstance:
       propertyPath: m_ConstrainProportionsScale
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: a8648e1f0a598d84ea7184bae0c9fc4c, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 31084850cbc32174baff3139260f92cb, type: 2}
     - target: {fileID: 919132149155446097, guid: a8648e1f0a598d84ea7184bae0c9fc4c, type: 3}
       propertyPath: m_Name
       value: flag
