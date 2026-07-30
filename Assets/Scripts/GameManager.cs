@@ -21,6 +21,16 @@ public class GameManager : Singleton<GameManager>
     void Update()
     {
         UpdateCameraPoint(a);
+
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+#if UNITY_EDITOR
+            UnityEditor.EditorApplication.isPlaying = false;//ゲームプレイ終了
+#else
+    Application.Quit();//ゲームプレイ終了
+#endif
+        }
+
     }
 
     void UpdateCameraPoint(int p)
